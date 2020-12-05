@@ -1,0 +1,28 @@
+{
+   "viettel" : {
+      "url": "http://10.240.147.246/BCCS_CC/home",
+      "url_login": "http://10.240.147.246/BCCS_CC/login",
+      "username": "Yennhh_hcm_dgd",
+      "password": "STD@123zxcv",
+      "browserType": "chrome",
+      "driverPath": "asset/driver/chromedriver-win32-84_0_4147_30.exe"
+   },
+   "mobi": {
+      "url": "",
+      "username": "",
+      "password": "",
+      "browserType": "chrome",
+      "driverPath": "asset/driver/chromedriver-win32-84_0_4147_30.exe"
+   },
+   "bhxh": {
+      "url": "http://tst.baohiemxahoi.gov.vn",
+      "number": "07505",
+      "username": "tracuu",
+      "password": "1",
+      "urlFindWithBhxh": "https://tst.baohiemxahoi.gov.vn/#/chiTietQts",
+      "attempSearchCount": 3,
+      "searchTimeoutInSeconds": 3,
+      "browserType": "chrome",
+      "driverPath": "asset/driver/chromedriver-v87-mac64"
+   }
+}
