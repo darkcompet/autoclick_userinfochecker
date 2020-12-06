@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import main.java.presentation.model.Session;
 import tool.compet.javacore.constant.DkConstant;
 
 import javax.swing.*;
@@ -28,6 +29,9 @@ public class HomeView {
     @FXML
     public void initialize() {
         currentHomeViewLogic = homeViewLogic;
+
+        edtInDirPath.setText(Session.config.setting.inDirPath);
+        edtOutDirPath.setText(Session.config.setting.outDirPath);
 
         ToggleGroup toggleGroup = new ToggleGroup();
         rdViettel.setToggleGroup(toggleGroup);

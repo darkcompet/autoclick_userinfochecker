@@ -5,6 +5,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Config {
    @Expose
+   @SerializedName("setting")
+   public Setting setting;
+
+   @Expose
    @SerializedName("viettel")
    public Viettel viettel;
 
@@ -24,6 +28,16 @@ public class Config {
       @Expose
       @SerializedName("driverPath")
       public String driverPath;
+   }
+
+   public static class Setting {
+      @Expose
+      @SerializedName("inDirPath")
+      public String inDirPath;
+
+      @Expose
+      @SerializedName("outDirPath")
+      public String outDirPath;
    }
 
    public static class Viettel extends CompanyType {

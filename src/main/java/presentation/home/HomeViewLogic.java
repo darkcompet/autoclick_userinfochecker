@@ -1,7 +1,12 @@
 package main.java.presentation.home;
 
 import javafx.application.Platform;
+import main.java.common.AppConst;
 import main.java.presentation.helper.Alerter;
+import main.java.presentation.model.Config;
+import main.java.presentation.model.Session;
+import tool.compet.javacore.helper.DkJsonHelper;
+import tool.compet.javacore.util.DkFiles;
 import tool.compet.javacore.util.DkStrings;
 
 public class HomeViewLogic {
@@ -20,7 +25,16 @@ public class HomeViewLogic {
       else if (siteType <= 0) {
          Alerter.error("Validation", "Site type is required");
       }
-      else {
+      else { // OK
+         Session.config.setting.inDirPath = inFilePath;
+         Session.config.setting.outDirPath = outDirPath;
+         String configJson = DkJsonHelper.getIns().obj2json(Session.config);
+         try {
+            DkFiles.save(configJson, AppConst.SETTING_FILE_PATH, false);
+         }
+         catch (Exception ignore) {
+         }
+
          modelLogic.start(siteType, inFilePath.trim(), outDirPath.trim());
       }
    }

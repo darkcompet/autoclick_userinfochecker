@@ -15,7 +15,7 @@ import tool.compet.javacore.util.DkFiles;
 
 public class App extends Application {
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/main/res/layout/home/home.fxml"));
         primaryStage.setTitle("Hello World");
         primaryStage.setScene(new Scene(root, 300, 275));
@@ -39,7 +39,7 @@ public class App extends Application {
     }
 
     private static void parseConfig() throws Exception {
-        String configJson = DkFiles.loadAsString(DkFiles.makePath(DkConstant.ABS_PATH, "config.json"));
+        String configJson = DkFiles.loadAsString(DkFiles.makePath(DkConstant.ABS_PATH, "setting", "config.json"));
         Session.config = DkJsonHelper.getIns().json2obj(configJson, Config.class);
     }
 }
