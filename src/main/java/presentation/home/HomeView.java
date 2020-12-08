@@ -5,7 +5,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import main.java.presentation.model.Session;
-import tool.compet.javacore.constant.DkConstant;
+import tool.compet.core.constant.DkConstant;
 
 import javax.swing.*;
 import java.io.File;

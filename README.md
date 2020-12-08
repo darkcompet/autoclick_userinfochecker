@@ -5,6 +5,14 @@ Auto click to get user info
 
 ## Setup project
 
+- Import dk_lib
+
+    ```bash
+    cd src/
+    ln -s /Users/compet/workspace/darkcompet/libraries/java/dk_java/src/tool/compet/core
+    ln -s /Users/compet/workspace/darkcompet/libraries/java/dk_java/src/tool/compet/automation
+    ```
+
 - Copy all libraries to `lib/`
 
 - At IntelliJ do below

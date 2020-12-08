@@ -1,12 +1,12 @@
 package main.java.business.excel;
 
-import main.java.common.AppConst;
+import main.java.common.constant.Constant;
 import main.java.common.model.MySheet;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import tool.compet.javacore.log.DkConsoleLogs;
+import tool.compet.core.log.DkLogger;
 
 import java.io.File;
 
@@ -46,8 +46,8 @@ public class ExcelReader {
                 }
             }
 
-            if (AppConst.DEBUG) {
-                DkConsoleLogs.debug(this, "First row index: %d, Last row index: %d, nullRowCount: %d",
+            if (Constant.DEBUG) {
+                DkLogger.getIns().debug(this, "First row index: %d, Last row index: %d, nullRowCount: %d",
                    firstRowIndex, lastRowIndex, nullRowCount);
             }
         }

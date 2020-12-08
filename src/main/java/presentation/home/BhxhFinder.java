@@ -2,19 +2,19 @@ package main.java.presentation.home;
 
 import main.java.business.excel.ExcelLogic;
 import main.java.common.model.MySheet;
-import main.java.presentation.helper.DriverHelper;
 import main.java.presentation.model.Config;
 import main.java.presentation.model.Session;
-import main.java.presentation.util.Util;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import tool.compet.javacore.log.DkConsoleLogs;
-import tool.compet.javacore.util.DkFiles;
-import tool.compet.javacore.util.DkObjects;
-import tool.compet.javacore.util.DkStrings;
+import tool.compet.automation.DkSeleniumHelper;
+import tool.compet.core.log.DkLogger;
+import tool.compet.core.util.DkFiles;
+import tool.compet.core.util.DkObjects;
+import tool.compet.core.util.DkStrings;
+import tool.compet.core.util.DkUtils;
 
 import java.io.File;
 import java.util.*;
@@ -254,9 +254,9 @@ public class BhxhFinder extends InfoFinder {
                         continue;
                     }
 
-                    // THIS IS FINDER PROCESSING
+                    // Find info for current bhxh code
                     callback.log("Find info for bhxh `%s` at row `%d` in file `%s`", bhxh, rowIndex + 1, inFileName);
-                    List<BhxhResultRow> bhxhResultRows = findInfo(bhxh);
+                    List<BhxhResultRow> bhxhResultRows = findInfoViaBhxhCode(bhxh);
 
                     if (DkObjects.isEmpty(bhxhResultRows)) {
                         BhxhHelper.addNoResultRow(rowIndex, START_READ_ROW_INDEX, inSheet, outSheet);
@@ -295,8 +295,7 @@ public class BhxhFinder extends InfoFinder {
         }
     }
 
-    // This is main action
-    private List<BhxhResultRow> findInfo(String bhxh) {
+    private List<BhxhResultRow> findInfoViaBhxhCode(String bhxhCode) {
         if (isStop.get()) {
             return null;
         }
@@ -305,7 +304,7 @@ public class BhxhFinder extends InfoFinder {
 
         // test bhxh code: 6822891887
         try {
-            DriverHelper.setText(webdriver.findElement(By.id(ID_BHXH_NUMBER)), bhxh);
+            DkSeleniumHelper.setText(webdriver.findElement(By.id(ID_BHXH_NUMBER)), bhxhCode);
 
             // Check which action should be performed next
             int nextAction = determineNextAction();
@@ -335,16 +334,16 @@ public class BhxhFinder extends InfoFinder {
         final List<BhxhResultRow> resultRows = new ArrayList<>();
 
         // Get info in result table
-        Util.sleep(200);
+        DkUtils.sleep(200);
         List<WebElement> rows = webdriver.findElements(By.xpath(XPATH_RESULT_DATA_ROW));
         callback.log("Found %d rows in result table", rows.size());
 
         // Get basic info first
         BhxhResultRow row = new BhxhResultRow();
-        row.name = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_NAME)));
-        row.birthday = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_BIRTHDAY)));
-        row.sex = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_SEX)));
-        row.cmnd = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_CMND)));
+        row.name = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_NAME)));
+        row.birthday = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_BIRTHDAY)));
+        row.sex = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_SEX)));
+        row.cmnd = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_CMND)));
 
         // Just assert rows is not empty
         if (DkObjects.isEmpty(rows)) {
@@ -387,7 +386,7 @@ public class BhxhFinder extends InfoFinder {
             webdriver.findElements(By.xpath(XPATH_BTN_CHOOSE_DOCUMENT)).get(rowIndex).click();
 
             // Get info in result table
-            Util.sleep(200);
+            DkUtils.sleep(200);
             List<WebElement> rows = webdriver.findElements(By.xpath(XPATH_RESULT_DATA_ROW));
 
             callback.log("Found %d results in table", rows.size());
@@ -411,10 +410,10 @@ public class BhxhFinder extends InfoFinder {
             callback.log("We choose last row which has %d columns", cols.size());
 
             BhxhResultRow row = new BhxhResultRow();
-            row.name = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_NAME)));
-            row.birthday = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_BIRTHDAY)));
-            row.sex = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_SEX)));
-            row.cmnd = DriverHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_CMND)));
+            row.name = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_NAME)));
+            row.birthday = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_BIRTHDAY)));
+            row.sex = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_SEX)));
+            row.cmnd = DkSeleniumHelper.getInputText(webdriver.findElement(By.xpath(XPATH_RESULT_CMND)));
 
             // Collect basic info first
             BhxhHelper.collectInfoFromResultRow(row, cols);
@@ -441,7 +440,7 @@ public class BhxhFinder extends InfoFinder {
             webdriver.findElement(By.xpath(XPATH_BTN_CLOSE_SEARCH_BHXH_POPUP)).click();
         }
         catch (Exception e) {
-            DkConsoleLogs.info(this, "Try close search bhxh popup but exception: %s", e.getMessage());
+            DkLogger.getIns().info(this, "Try close search bhxh popup but exception: %s", e.getMessage());
         }
     }
 
@@ -477,7 +476,7 @@ public class BhxhFinder extends InfoFinder {
     }
 
     private void sleepBeforePerformClick() {
-        Util.sleep(3000 + random.nextInt(2000));
+        DkUtils.sleep(3000 + random.nextInt(2000));
     }
 
     private int determineNextAction() {

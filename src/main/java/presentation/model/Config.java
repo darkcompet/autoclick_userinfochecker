@@ -20,7 +20,7 @@ public class Config {
    @SerializedName("bhxh")
    public Bhxh bhxh;
 
-   private static class CompanyType {
+   private static class CompanyBaseConfig {
       @Expose
       @SerializedName("browserType")
       public String browserType;
@@ -40,7 +40,7 @@ public class Config {
       public String outDirPath;
    }
 
-   public static class Viettel extends CompanyType {
+   public static class Viettel extends CompanyBaseConfig {
       @Expose
       @SerializedName("url")
       public String url;
@@ -54,7 +54,7 @@ public class Config {
       public String password;
    }
 
-   public static class Mobi extends CompanyType {
+   public static class Mobi extends CompanyBaseConfig {
       @Expose
       @SerializedName("url")
       public String url;
@@ -68,7 +68,7 @@ public class Config {
       public String password;
    }
 
-   public static class Bhxh extends CompanyType {
+   public static class Bhxh extends CompanyBaseConfig {
       @Expose
       @SerializedName("url")
       public String url;

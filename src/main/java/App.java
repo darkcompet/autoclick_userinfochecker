@@ -8,10 +8,10 @@ import javafx.stage.Stage;
 import main.java.presentation.home.HomeView;
 import main.java.presentation.model.Config;
 import main.java.presentation.model.Session;
-import tool.compet.javacore.constant.DkConstant;
-import tool.compet.javacore.helper.DkJsonHelper;
-import tool.compet.javacore.log.DkGuiLogs;
-import tool.compet.javacore.util.DkFiles;
+import tool.compet.core.constant.DkConstant;
+import tool.compet.core.helper.DkJsonHelper;
+import tool.compet.core.log.DkGuiLogger;
+import tool.compet.core.util.DkFiles;
 
 public class App extends Application {
     @Override
@@ -34,7 +34,7 @@ public class App extends Application {
             launch(args);
         }
         catch (Exception e) {
-            DkGuiLogs.showMsgBox("Error", "Could not parse config file, errMsg: %s", e.getMessage());
+            DkGuiLogger.getIns().error("App", "Could not parse config file, errMsg: %s", e.getMessage());
         }
     }
 

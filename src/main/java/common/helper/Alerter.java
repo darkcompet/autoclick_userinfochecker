@@ -1,4 +1,4 @@
-package main.java.presentation.helper;
+package main.java.common.helper;
 
 import javafx.scene.control.Alert;
 
